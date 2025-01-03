@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# [About]
+# This is a separate initialization script that
+# loads all the utilities into the installation
+# so that I do not have to manage these in each
+# process-type script I have. I can just source
+# one script that loads the utilities and run
+# the script.
+
+# Init variables from the "dotfiles.json"
+# configuration.
+binary=""
+symlink=""
+
+source "bin/utils/colors"
+source "bin/utils/quit"
+source "bin/utils/json"
+
+# Attempt to load them from the "dotfiles.json"
+# configuration.
+binary=`json "dotfiles.json" ".binary"`
+symlink=`json "dotfiles.json" ".symlink"`
+

@@ -1,0 +1,22 @@
+{
+	"name": "dotfiles",
+	"version": "0.0.1",
+	"type": "module",
+	"private": true,
+	"workspaces": ["packages/*", "tools/*"],
+	"scripts": {
+		"postinstall": "make image",
+		"rebuild": "make rebuild",
+		"nuke": "make nuke",
+		"clean": "make clean",
+		"+install": "make install",
+		"@go": "bun --cwd tools/go",
+		"@odin": "bun --cwd tools/odin",
+		"@python": "bun --cwd tools/python",
+		"@typescript": "bun --cwd tools/typescript",
+		"@zig": "bun --cwd tools/zig"
+	},
+	"devDependencies": {
+		"@types/node": "^22.10.4"
+	}
+}
