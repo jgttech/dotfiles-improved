@@ -22,4 +22,3 @@ source "bin/utils/json"
 # configuration.
 binary=`json "dotfiles.json" ".binary"`
 symlink=`json "dotfiles.json" ".symlink"`
-

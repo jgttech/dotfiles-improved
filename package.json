@@ -6,9 +6,10 @@
 	"workspaces": ["packages/*", "tools/*"],
 	"scripts": {
 		"postinstall": "make image",
-		"rebuild": "make rebuild",
-		"nuke": "make nuke",
-		"clean": "make clean",
+		"+rebuild": "make rebuild",
+		"+nuke": "make nuke",
+		"+clean": "make clean",
+		"+ssh": "make ssh",
 		"+install": "make install",
 		"@go": "bun --cwd tools/go",
 		"@odin": "bun --cwd tools/odin",

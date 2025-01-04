@@ -6,12 +6,14 @@ image:
 ssh:
 	@podman run -it \
 		-v $(shell pwd):/root/.dotfiles \
+		-n dotfiles \
 		dotfiles /bin/zsh
 
 .PHONY: install
 install:
 	@podman run -t \
 		-v $(shell pwd):/root/.dotfiles \
+		-n dotfiles \
 		dotfiles /bin/zsh -c "bash .dotfiles/bin/dev.install"
 
 .PHONY: nuke
