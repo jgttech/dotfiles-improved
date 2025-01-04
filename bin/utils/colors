@@ -4,6 +4,7 @@ set -euo pipefail
 _dim=`tput dim`
 _bold=`tput bold`
 _normal=`tput sgr0`
+_red=`tput setaf 1`
 _green=`tput setaf 2`
 
 function log {
@@ -20,4 +21,8 @@ function bold {
 
 function green {
   printf "${_green}$1${_normal}"
+}
+
+function red {
+  printf "${_red}$1${_normal}"
 }

@@ -75,18 +75,28 @@ fi
 cd $base
 source "bin/init"
 
+# Backup the current configuration, if it exists.
+if [[ -f "$HOME/.zshrc" ]]; then
+  mv "$HOME/.zshrc" "$HOME/.zshrc.$(date +%s).backup"
+fi
+
 if [[ ! -d "$base/$tools" ]]; then
   echo "Tools not found: '$tools'"
   exit 1
 fi
 
-echo "| INSTALLATION"
+tput dim
+echo ""
+echo "| $(bold "INSTALLATION")"
+tput dim
 echo "| base.....: $base"
 echo "| language.: $language"
 echo "| tools....: $tools"
 echo "| build....: $build"
 echo "| binary...: $binary"
 echo "| symlink..: $symlink"
+echo ""
+tput sgr0
 
 bun --cwd $tools build $symlink $binary
 
@@ -117,6 +127,5 @@ stow -t $HOME .build
 # Run the installation for the binary.
 "$build/$symlink/$binary" install
 
-echo ""
-echo $(green "$(bold "Build successful.")")
+echo $(green "$(bold "Install successful.")")
 cd $wd
