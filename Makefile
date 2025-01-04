@@ -3,6 +3,7 @@
 # 	-v $(shell pwd):/root/.dotfiles \
 # 	dotfiles
 INSTALL_SCRIPT = .dotfiles/bin/install
+UNINSTALL_SCRIPT = .dotfiles/bin/uninstall
 
 .PHONY: build
 build:
@@ -29,6 +30,11 @@ clean:
 
 .PHONY: rebuild
 rebuild: nuke postinstall
+
+.PHONY: uninstall
+uninstall:
+	@podman exec -it dotfiles /bin/zsh -c \
+		"cat $(UNINSTALL_SCRIPT) | DOTFILES_DEV=true bash"
 
 # Default install method.
 .PHONY: install
