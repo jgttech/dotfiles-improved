@@ -80,6 +80,14 @@ if [[ ! -d "$base/$tools" ]]; then
   exit 1
 fi
 
+echo "| INSTALLATION"
+echo "|   base.....: $base"
+echo "|   language.: $language"
+echo "|   tools....: $tools"
+echo "|   build....: $build"
+echo "|   binary...: $binary"
+echo "|   symlink..: $symlink"
+
 bun --cwd $tools build $symlink $binary
 
 if [[ ! -f "$base/$symlink/$binary" ]]; then
@@ -101,14 +109,5 @@ jq -n '{config: $ARGS.named}' \
   > "$build/.dotfiles.build.json"
 
 $binary install
-
-# echo "| INSTALLATION"
-# echo "|   wd.......: $wd"
-# echo "|   base.....: $base"
-# echo "|   language.: $language"
-# echo "|   tools....: $tools"
-# echo "|   build....: $build"
-# echo "|   binary...: $binary"
-# echo "|   symlink..: $symlink"
 
 cd $wd
