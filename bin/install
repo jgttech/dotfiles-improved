@@ -81,12 +81,12 @@ if [[ ! -d "$base/$tools" ]]; then
 fi
 
 echo "| INSTALLATION"
-echo "|   base.....: $base"
-echo "|   language.: $language"
-echo "|   tools....: $tools"
-echo "|   build....: $build"
-echo "|   binary...: $binary"
-echo "|   symlink..: $symlink"
+echo "| base.....: $base"
+echo "| language.: $language"
+echo "| tools....: $tools"
+echo "| build....: $build"
+echo "| binary...: $binary"
+echo "| symlink..: $symlink"
 
 bun --cwd $tools build $symlink $binary
 
@@ -94,6 +94,9 @@ if [[ ! -f "$build/$symlink/$binary" ]]; then
   echo "Failed to build tools: '$tools'"
   exit 1
 fi
+
+echo ""
+echo "$(bold "Build successful.")"
 
 # Save the build configuration into the build
 # directory for use later to make the "reinstall"
@@ -114,4 +117,6 @@ stow -t $HOME .build
 # Run the installation for the binary.
 "$build/$symlink/$binary" install
 
+echo ""
+echo $(green "$(bold "Build successful.")")
 cd $wd
