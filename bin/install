@@ -112,6 +112,6 @@ jq -n '{config: $ARGS.named}' \
 stow -t $HOME .build
 
 # Run the installation for the binary.
-$binary install
+"$build/$symlink/$binary" install
 
 cd $wd
