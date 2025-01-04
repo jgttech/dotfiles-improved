@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 symlink="$1"
-exe="$2"
+binary="$2"
 
-go build -o ../../.build/$symlink/$exe main.go
+go build -o ../../.build/$symlink/$binary main.go

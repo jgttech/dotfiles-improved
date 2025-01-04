@@ -1,20 +1,20 @@
-.PHONY: image
-image:
+# @podman run -dit \
+# 	--name dotfiles \
+# 	-v $(shell pwd):/root/.dotfiles \
+# 	dotfiles
+INSTALL_SCRIPT = .dotfiles/bin/install
+
+.PHONY: build
+build:
 	@podman build -t dotfiles --format docker .
+
+.PHONY: init
+init:
+	@podman run -dit --name dotfiles dotfiles
 
 .PHONY: ssh
 ssh:
-	@podman run -it \
-		-v $(shell pwd):/root/.dotfiles \
-		--name dotfiles \
-		dotfiles /bin/zsh
-
-.PHONY: install
-install:
-	@podman run -t \
-		-v $(shell pwd):/root/.dotfiles \
-		--name dotfiles \
-		dotfiles /bin/zsh -c "bash .dotfiles/bin/dev.install"
+	@podman exec -it dotfiles /bin/zsh
 
 .PHONY: nuke
 nuke:
@@ -28,4 +28,40 @@ clean:
 	-podman rm -f `podman ps -qa`
 
 .PHONY: rebuild
-rebuild: nuke image
+rebuild: nuke postinstall
+
+# Default install method.
+.PHONY: install
+install: clean init
+	@podman exec -it dotfiles /bin/zsh -c \
+		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true bash"
+
+# Go install method.
+.PHONY: go
+go: clean build init
+	@podman exec -it dotfiles /bin/zsh -c \
+		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=go bash"
+
+# Odin install method.
+.PHONY: odin
+odin: clean init
+	@podman exec -it dotfiles /bin/zsh -c \
+		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=odin bash"
+
+# Zig install method.
+.PHONY: zig
+zig: clean init
+	@podman exec -it dotfiles /bin/zsh -c \
+		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=zig bash"
+
+# Python install method.
+.PHONY: python
+python: clean init
+	@podman exec -it dotfiles /bin/zsh -c \
+		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=python bash"
+
+# TypeScript install method.
+.PHONY: typescript
+typescript:
+	@podman exec -it dotfiles /bin/zsh -c \
+		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=typescript bash"

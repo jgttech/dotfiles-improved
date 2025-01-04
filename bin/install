@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Indicates that the script is being run in
+# development mode.
+dev=${DOTFILES_DEV:-false}
+
 # Working directory when the script was called.
 # Used to keep track of the origin directory path
 # so that the user can be placed back in the same
@@ -62,7 +66,7 @@ fi
 # update the repo, if it has a ".git" dir in it.
 if [[ ! -d "$base" ]]; then
   git clone https://github.com/jgttech/dotfiles.git $base
-elif [[ -d "$base/.git" ]]; then
+elif [[ -d "$base/.git" && "$dev" == false ]]; then
   cd $base
   git pull
   cd $wd
@@ -71,13 +75,40 @@ fi
 cd $base
 source "bin/init"
 
-echo "| INSTALLATION"
-echo "|   wd.......: $wd"
-echo "|   base.....: $base"
-echo "|   language.: $language"
-echo "|   tools....: $tools"
-echo "|   build....: $build"
-echo "|   binary...: $binary"
-echo "|   symlink..: $symlink"
+if [[ ! -d "$base/$tools" ]]; then
+  echo "Tools not found: '$tools'"
+  exit 1
+fi
+
+bun --cwd $tools build $symlink $binary
+
+if [[ ! -f "$base/$symlink/$binary" ]]; then
+  echo "Failed to build tools: '$tools'"
+  exit 1
+fi
+
+# Save the build configuration into the build
+# directory for use later to make the "reinstall"
+# script, so I know what happened when it was
+# initially installed.
+jq -n '{config: $ARGS.named}' \
+  --arg base "$base" \
+  --arg language "$language" \
+  --arg tools "$tools" \
+  --arg build "$build" \
+  --arg binary "$binary" \
+  --arg symlink "$symlink" \
+  > "$build/.dotfiles.build.json"
+
+$binary install
+
+# echo "| INSTALLATION"
+# echo "|   wd.......: $wd"
+# echo "|   base.....: $base"
+# echo "|   language.: $language"
+# echo "|   tools....: $tools"
+# echo "|   build....: $build"
+# echo "|   binary...: $binary"
+# echo "|   symlink..: $symlink"
 
 cd $wd
