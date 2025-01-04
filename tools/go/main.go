@@ -22,7 +22,7 @@ func main() {
 			env.Command(),
 			install.Command(cfg),
 			purge.Command(),
-			uninstall.Command(),
+			uninstall.Command(cfg),
 		},
 	}
 
