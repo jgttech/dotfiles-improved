@@ -1,4 +1,5 @@
 {
+	"language": "go",
 	"binary": "dtf",
 	"symlink": ".local/bin"
 }
