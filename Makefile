@@ -4,6 +4,7 @@
 # 	dotfiles
 INSTALL_SCRIPT = .dotfiles/bin/install
 UNINSTALL_SCRIPT = .dotfiles/bin/uninstall
+REINSTALL_SCRIPT = .dotfiles/bin/reinstall
 
 .PHONY: build
 build:
@@ -30,6 +31,11 @@ clean:
 
 .PHONY: rebuild
 rebuild: nuke postinstall
+
+.PHONY: reinstall
+reinstall:
+	@podman exec -it dotfiles /bin/zsh -c \
+		"cat $(REINSTALL_SCRIPT) | DOTFILES_LANG=zig DOTFILES_DEV=true bash"
 
 .PHONY: uninstall
 uninstall:

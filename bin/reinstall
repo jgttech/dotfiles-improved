@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+config="$HOME/.dotfiles.build.json"
+base=`cat $config | jq ".config.base"`
+base=`echo "$base" | tr -d '"'`
+
+cd $base
+source "bin/init"
+source "bin/uninstall"
+source "bin/install"
