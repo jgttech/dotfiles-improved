@@ -90,7 +90,7 @@ echo "|   symlink..: $symlink"
 
 bun --cwd $tools build $symlink $binary
 
-if [[ ! -f "$base/$symlink/$binary" ]]; then
+if [[ ! -f "$build/$symlink/$binary" ]]; then
   echo "Failed to build tools: '$tools'"
   exit 1
 fi
@@ -108,6 +108,10 @@ jq -n '{config: $ARGS.named}' \
   --arg symlink "$symlink" \
   > "$build/.dotfiles.build.json"
 
+# Link the build into the system.
+stow -t $HOME .build
+
+# Run the installation for the binary.
 $binary install
 
 cd $wd
