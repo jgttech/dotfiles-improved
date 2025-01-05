@@ -24,6 +24,12 @@ The development of the CLI uses `podman` to create a container and install the C
 bun i
 ```
 
+> Create a container with an installation.
+
+```bash
+bun +install
+```
+
 ## Development Commands
 
 Commands can be invoked to run against the installed CLI within the container, once it is setup. Creating the container copies over the files and installs the CLI to allow things to be tested without breaking the host OS.
