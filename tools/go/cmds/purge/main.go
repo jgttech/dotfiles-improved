@@ -20,14 +20,14 @@ func Command(build *config.BuildJson) *cli.Command {
 		Usage: "Unlinks all the stow links and CLI, then deletes the source code from the system.",
 		Action: func(ctx context.Context, c *cli.Command) error {
 			// Detect and unlink all the packages.
-			cmd := exec.Cmd(fmt.Sprintf("%s uninstall", cfg.Binary))
+			cmd := exec.Cmd(fmt.Sprintf("%s uninstall", cfg.Binary), exec.Stdio)
 
 			if err := cmd.Run(); err != nil {
 				return err
 			}
 
 			// Unlink the build.
-			cmd = exec.Cmd(fmt.Sprintf("stow -t %s -D .build", home))
+			cmd = exec.Cmd(fmt.Sprintf("stow -t %s -D .build", home), exec.Stdio)
 			cmd.Dir = cfg.Base
 
 			assert.Will(cmd.Run())

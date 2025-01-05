@@ -38,7 +38,6 @@ func Command(build *config.BuildJson) *cli.Command {
 			)
 
 			cmd.Dir = dir
-
 			return cmd.Run()
 		},
 	}
