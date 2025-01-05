@@ -31,7 +31,6 @@ func Command(build *config.BuildJson) *cli.Command {
 			cmd.Dir = cfg.Base
 
 			assert.Will(cmd.Run())
-
 			return nil
 		},
 	}
