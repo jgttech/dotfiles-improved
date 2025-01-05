@@ -6,7 +6,7 @@ set -euo pipefail
 # invoke the CLI's uninstall command, based on the
 # build configuration.
 
-binary=`cat $DOTFILES_CONFIG | jq ".config.binary"`
+binary=`cat "$HOME/.dotfiles.build.json" | jq ".config.binary"`
 binary=`echo "$binary" | tr -d '"'`
 
 $binary rebuild
