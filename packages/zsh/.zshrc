@@ -1,13 +1,10 @@
-########################################################
-# [DOTFILES CONFIGURATION]                            ##
-export DOTFILES_ZSHRC_DIR="$HOME/.config/zsh"         ##
-export DOTFILES_ZSHRC="$HOME/.config/zsh/zshrc"       ##
-export DOTFILES_CONFIG="$HOME/.dotfiles.config.json"  ##
-                                                      ##
-if [[ -f "$DOTFILES_ZSHRC" ]]; then                   ##
-  source "$DOTFILES_ZSHRC"                            ##
-fi                                                    ##
-########################################################
+export DOTFILES_ZSHRC_DIR="$HOME/.config/zsh"
+export DOTFILES_ZSHRC="$HOME/.config/zsh/zshrc"
+export DOTFILES_CONFIG="$HOME/.dotfiles.build.json"
+
+if [[ -f "$DOTFILES_ZSHRC" ]]; then
+  source "$DOTFILES_ZSHRC"
+fi
 
 # This file should NEVER be committed to a
 # source code manager, in any way. The things
@@ -138,3 +135,16 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias vim="nvim"
+
+# Check if the build configuration exists so that
+# I can if the PATH contains the directory that
+# links to the binary. If it does not exist, then
+# I add the binary path to the system PATH.
+if [[ -f "$DOTFILES_CONFIG" ]]; then
+  symlink=`cat "$DOTFILES_CONFIG" | jq ".config.symlink"`
+  symlink=`echo $symlink | tr -d '"'`
+
+  if [[ $PATH != *"$HOME/$symlink"* ]]; then
+    export PATH="$PATH:$HOME/$symlink"
+  fi
+fi
