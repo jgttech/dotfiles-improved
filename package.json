@@ -5,12 +5,12 @@
 	"private": true,
 	"workspaces": ["packages/*", "tools/*"],
 	"scripts": {
-		"postinstall": "make postinstall",
 		"+dev": "make dev",
 		"+rebuild": "make rebuild",
 		"+nuke": "make nuke",
 		"+clean": "make clean",
 		"+ssh": "make ssh",
+		"+config": "make config",
 		"+install": "make install",
 		"+go": "make go",
 		"+odin": "make odin",
