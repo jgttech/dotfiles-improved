@@ -7,7 +7,7 @@ import (
 	"jgttech/dotfiles/cmds/env"
 	"jgttech/dotfiles/cmds/install"
 	"jgttech/dotfiles/cmds/purge"
-	"jgttech/dotfiles/cmds/reinstall"
+	"jgttech/dotfiles/cmds/rebuild"
 	"jgttech/dotfiles/cmds/uninstall"
 	"jgttech/dotfiles/src/config"
 
@@ -23,7 +23,7 @@ func main() {
 			env.Command(build),
 			install.Command(build),
 			purge.Command(build),
-			reinstall.Command(build),
+			rebuild.Command(build),
 			uninstall.Command(build),
 		},
 	}
