@@ -15,3 +15,7 @@ zsh-import "env"
 zsh-import "docker"
 zsh-import "git"
 zsh-import "os"
+
+if [[ $(uname) == "$WORK_OS" ]] && [[ $(uname -n) == "$WORK_ID" ]]; then
+  zsh-import "work"
+fi
