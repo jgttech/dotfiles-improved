@@ -30,4 +30,18 @@ Commands can be invoked to run against the installed CLI within the container, o
 
 | Command | Description |
 |:-|:-|
-| `bun +install` | Runs the install script. |
+| `+nuke` | Destroys all containers and images. |
+| `+clean` | Destroys all containers. |
+| `+ssh` | Connect to the container. |
+| `+config` | Cat the build configuration. |
+| `bun +install` | Builds/Rebuilds the container and runs the default installation. |
+| `bun +go` | Builds/Rebuilds the container and runs the Go language installation. |
+| `bun +odin` | Builds/Rebuilds the container and runs the Odin language installation. |
+| `bun +zig` | Builds/Rebuilds the container and runs the Zig language installation. |
+| `bun +python` | Builds/Rebuilds the container and runs the Python language installation. |
+| `bun +typescript` | Builds/Rebuilds the container and runs the TypeScript language installation. |
+| `bun @go ...` | Run script against the workspace for Go lang. |
+| `bun @odin ...` | Run script against the workspace for Odin lang. |
+| `bun @zig ...` | Run script against the workspace for Zig lang. |
+| `bun @python ...` | Run script against the workspace for Python lang. |
+| `bun @typescript ...` | Run script against the workspace for TypeScript lang. |
