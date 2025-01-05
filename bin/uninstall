@@ -11,6 +11,3 @@ source "bin/init"
 build=`json "$config" ".config.build"`
 
 "$build/$symlink/$binary" uninstall
-
-# Link the build into the system.
-stow -t $HOME -D .build
