@@ -27,6 +27,8 @@ bun i
 > Create a container with an installation.
 
 ```bash
+# Alternatively, you can also use "make install".
+# Afterall, this just invokes "make" anyway.
 bun +install
 ```
 
