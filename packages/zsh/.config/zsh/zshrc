@@ -12,5 +12,6 @@ function zsh-import {
 
 # Load environment variables.
 zsh-import "env"
-zsh-import "utils"
+zsh-import "docker"
+zsh-import "git"
 zsh-import "os"

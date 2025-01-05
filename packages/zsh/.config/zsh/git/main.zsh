@@ -40,3 +40,4 @@ function save {
     echo "Must pass a message as a string."
   fi
 }
+
