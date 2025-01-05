@@ -32,6 +32,10 @@ clean:
 .PHONY: rebuild
 rebuild: nuke postinstall
 
+.PHONY: config
+config:
+	@podman exec -it dotfiles /bin/zsh -c "cat .dotfiles.build.json"
+
 .PHONY: reinstall
 reinstall:
 	@podman exec -it dotfiles /bin/zsh -c \

@@ -18,7 +18,7 @@ func Command(build *config.BuildJson) *cli.Command {
 
 	return &cli.Command{
 		Name:  "uninstall",
-		Usage: "",
+		Usage: "Unlink all the stow packages.",
 		Action: func(ctx context.Context, c *cli.Command) error {
 			stow := []string{}
 			dir := path.Join(cfg.Base, "packages")

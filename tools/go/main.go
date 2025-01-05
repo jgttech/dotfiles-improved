@@ -14,15 +14,15 @@ import (
 )
 
 func main() {
-	cfg := config.NewBuildJson()
+	build := config.NewBuildJson()
 	app := &cli.Command{
 		Name:  "dotfiles",
 		Usage: "My personal dotfiles CLI.",
 		Commands: []*cli.Command{
-			env.Command(),
-			install.Command(cfg),
-			purge.Command(),
-			uninstall.Command(cfg),
+			env.Command(build),
+			install.Command(build),
+			purge.Command(build),
+			uninstall.Command(build),
 		},
 	}
 
