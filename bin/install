@@ -106,7 +106,7 @@ if [[ ! -f "$build/$symlink/$binary" ]]; then
 fi
 
 echo ""
-echo "$(bold "Build successful.")"
+echo "$(bold "Build successful: $binary")"
 
 # Save the build configuration into the build
 # directory for use later to make the "reinstall"
@@ -128,5 +128,5 @@ stow -t $HOME .build
 # Run the installation for the binary.
 "$build/$symlink/$binary" install
 
-echo $(green "$(bold "Install successful: $binary")")
+echo $(green "$(bold "Install successful")")
 cd $wd
