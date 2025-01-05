@@ -1,7 +1,8 @@
 package main
 
 import (
-	"context"
+	ctx "context"
+	"fmt"
 	"os"
 
 	"jgttech/dotfiles/cmds/env"
@@ -9,26 +10,29 @@ import (
 	"jgttech/dotfiles/cmds/purge"
 	"jgttech/dotfiles/cmds/rebuild"
 	"jgttech/dotfiles/cmds/uninstall"
-	"jgttech/dotfiles/src/config"
+	"jgttech/dotfiles/src/context"
 
 	"github.com/urfave/cli/v3"
 )
 
 func main() {
-	build := config.NewBuildJson()
+	etx := context.NewExecutionContext()
+	fmt.Println("packages.:", etx.Packages())
+	fmt.Println("tools....:", etx.Tools())
+
 	app := &cli.Command{
 		Name:  "dotfiles",
 		Usage: "My personal dotfiles CLI.",
 		Commands: []*cli.Command{
-			env.Command(build),
-			install.Command(build),
-			purge.Command(build),
-			rebuild.Command(build),
-			uninstall.Command(build),
+			env.Command(etx),
+			install.Command(etx),
+			purge.Command(etx),
+			rebuild.Command(etx),
+			uninstall.Command(etx),
 		},
 	}
 
-	if err := app.Run(context.Background(), os.Args); err != nil {
+	if err := app.Run(ctx.Background(), os.Args); err != nil {
 		panic(err)
 	}
 }

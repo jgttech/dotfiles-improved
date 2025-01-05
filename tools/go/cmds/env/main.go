@@ -1,20 +1,20 @@
 package env
 
 import (
-	"context"
+	ctx "context"
 	"fmt"
-	"jgttech/dotfiles/src/config"
+	"jgttech/dotfiles/src/context"
 
 	"github.com/urfave/cli/v3"
 )
 
-func Command(build *config.BuildJson) *cli.Command {
-	cfg := build.Config
+func Command(etx *context.ExecutionContext) *cli.Command {
+	cfg := etx.Build.Config
 
 	return &cli.Command{
 		Name:  "env",
 		Usage: "",
-		Action: func(ctx context.Context, c *cli.Command) error {
+		Action: func(ctx ctx.Context, c *cli.Command) error {
 			fmt.Println("base.....:", cfg.Base)
 			fmt.Println("build....:", cfg.Build)
 			fmt.Println("tools....:", cfg.Tools)

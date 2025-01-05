@@ -1,10 +1,9 @@
 package install
 
 import (
-	"context"
+	ctx "context"
 	"fmt"
-	"jgttech/dotfiles/src/assert"
-	"jgttech/dotfiles/src/config"
+	"jgttech/dotfiles/src/context"
 	"jgttech/dotfiles/src/exec"
 	"os"
 	"path"
@@ -13,31 +12,18 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-func Command(build *config.BuildJson) *cli.Command {
-	cfg := build.Config
+func Command(etx *context.ExecutionContext) *cli.Command {
+	cfg := etx.Build.Config
+	home := os.Getenv("HOME")
 
 	return &cli.Command{
 		Name:  "install",
 		Usage: "Install all the packages.",
-		Action: func(ctx context.Context, c *cli.Command) error {
-			stow := []string{}
-			dir := path.Join(cfg.Base, "packages")
-			packages := assert.Must(os.ReadDir(dir))
+		Action: func(_ ctx.Context, c *cli.Command) error {
+			args := fmt.Sprintf("stow -t %s %s", home, strings.Join(etx.Packages(), " "))
+			cmd := exec.Cmd(args, exec.Stdio)
+			cmd.Dir = path.Join(cfg.Base, "packages")
 
-			for _, pkg := range packages {
-				stow = append(stow, pkg.Name())
-			}
-
-			cmd := exec.Cmd(
-				fmt.Sprintf(
-					"stow -t %s %s",
-					os.Getenv("HOME"),
-					strings.Join(stow, " "),
-				),
-				exec.Stdio,
-			)
-
-			cmd.Dir = dir
 			return cmd.Run()
 		},
 	}
