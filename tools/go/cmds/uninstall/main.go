@@ -15,14 +15,16 @@ import (
 
 func Command(build *config.BuildJson) *cli.Command {
 	cfg := build.Config
+	home := os.Getenv("HOME")
 
 	return &cli.Command{
 		Name:  "uninstall",
-		Usage: "Unlink all the stow packages.",
+		Usage: "Unlink all the stow packages. But the CLI will still exist.",
 		Action: func(ctx context.Context, c *cli.Command) error {
+			// Detect and unlink all the packages.
 			stow := []string{}
-			dir := path.Join(cfg.Base, "packages")
-			packages := assert.Must(os.ReadDir(dir))
+			packagesDir := path.Join(cfg.Base, "packages")
+			packages := assert.Must(os.ReadDir(packagesDir))
 
 			for _, pkg := range packages {
 				stow = append(stow, pkg.Name())
@@ -31,15 +33,16 @@ func Command(build *config.BuildJson) *cli.Command {
 			cmd := exec.Cmd(
 				fmt.Sprintf(
 					"stow -t %s -D %s",
-					os.Getenv("HOME"),
+					home,
 					strings.Join(stow, " "),
 				),
 				exec.Stdio,
 			)
 
-			cmd.Dir = dir
+			cmd.Dir = packagesDir
+			assert.Will(cmd.Run())
 
-			return cmd.Run()
+			return nil
 		},
 	}
 }
