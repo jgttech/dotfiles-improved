@@ -1,6 +1,7 @@
 INSTALL_SCRIPT = .dotfiles/bin/install
 UNINSTALL_SCRIPT = .dotfiles/bin/uninstall
 REINSTALL_SCRIPT = .dotfiles/bin/reinstall
+REBUILD_SCRIPT = .dotfiles/bin/rebuild
 
 .PHONY: build
 build:
@@ -25,55 +26,61 @@ clean:
 	-podman kill `podman ps -qa`
 	-podman rm -f `podman ps -qa`
 
-.PHONY: rebuild
-rebuild: nuke postinstall
-
 .PHONY: config
 config:
 	@podman exec -it dotfiles /bin/zsh -c "cat .dotfiles.build.json"
 
-.PHONY: reinstall
-reinstall:
+#######################################################
+# Lifecycle commands
+#
+
+.PHONY: install
+install: clean build init
 	@podman exec -it dotfiles /bin/zsh -c \
-		"cat $(REINSTALL_SCRIPT) | DOTFILES_LANG=zig DOTFILES_DEV=true bash"
+		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true bash"
 
 .PHONY: uninstall
 uninstall:
 	@podman exec -it dotfiles /bin/zsh -c \
 		"cat $(UNINSTALL_SCRIPT) | DOTFILES_DEV=true bash"
 
-# Default install method.
-.PHONY: install
-install: clean init
+.PHONY: reinstall
+reinstall:
 	@podman exec -it dotfiles /bin/zsh -c \
-		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true bash"
+		"cat $(REINSTALL_SCRIPT) | DOTFILES_LANG=zig DOTFILES_DEV=true bash"
 
-# Go install method.
+.PHONY: rebuild
+rebuild:
+	@podman exec -it dotfiles /bin/zsh -c \
+		"cat $(REINSTALL_SCRIPT) | DOTFILES_LANG=zig DOTFILES_DEV=true bash"
+
+#######################################################
+# Install methods
+#
+# Used for testing different installation processes for
+# whichever language I want to use.
+
 .PHONY: go
 go: clean build init
 	@podman exec -it dotfiles /bin/zsh -c \
 		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=go bash"
 
-# Odin install method.
 .PHONY: odin
-odin: clean init
+odin: clean build init
 	@podman exec -it dotfiles /bin/zsh -c \
 		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=odin bash"
 
-# Zig install method.
 .PHONY: zig
-zig: clean init
+zig: clean build init
 	@podman exec -it dotfiles /bin/zsh -c \
 		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=zig bash"
 
-# Python install method.
 .PHONY: python
-python: clean init
+python: clean build init
 	@podman exec -it dotfiles /bin/zsh -c \
 		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=python bash"
 
-# TypeScript install method.
 .PHONY: typescript
-typescript:
+typescript: clean build init
 	@podman exec -it dotfiles /bin/zsh -c \
 		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true DOTFILES_LANG=typescript bash"
