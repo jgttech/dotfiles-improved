@@ -38,10 +38,10 @@ Commands can be invoked to run against the installed CLI within the container, o
 
 | Command | Description |
 |:-|:-|
-| `+nuke` | Destroys all containers and images. |
-| `+clean` | Destroys all containers. |
-| `+ssh` | Connect to the container. |
-| `+config` | Cat the build configuration. |
+| `bun +nuke` | Destroys all containers and images. |
+| `bun +clean` | Destroys all containers. |
+| `bun +ssh` | Connect to the container. |
+| `bun +config` | Cat the build configuration. |
 | `bun +install` | Builds/Rebuilds the container and runs the default installation. |
 | `bun +go` | Builds/Rebuilds the container and runs the Go language installation. |
 | `bun +odin` | Builds/Rebuilds the container and runs the Odin language installation. |
