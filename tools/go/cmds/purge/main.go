@@ -17,7 +17,7 @@ func Command(build *config.BuildJson) *cli.Command {
 
 	return &cli.Command{
 		Name:  "purge",
-		Usage: "Unlinks all the stow links and CLI, then deletes the source code from the system.",
+		Usage: "Uninstalls the packages and the CLI, as well as DELETES the repo from your system.",
 		Action: func(ctx context.Context, c *cli.Command) error {
 			// Detect and unlink all the packages.
 			cmd := exec.Cmd(fmt.Sprintf("%s uninstall", cfg.Binary), exec.Stdio)

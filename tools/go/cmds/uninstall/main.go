@@ -19,7 +19,7 @@ func Command(build *config.BuildJson) *cli.Command {
 
 	return &cli.Command{
 		Name:  "uninstall",
-		Usage: "Unlink all the stow packages. But the CLI will still exist.",
+		Usage: "Uninstall the packages, but NOT the CLI.",
 		Action: func(ctx context.Context, c *cli.Command) error {
 			// Detect and unlink all the packages.
 			stow := []string{}

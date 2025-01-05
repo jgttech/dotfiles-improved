@@ -1,5 +1,5 @@
 {
-	"language": "go",
 	"binary": "dtf",
-	"symlink": ".local/bin"
+	"symlink": ".local/bin",
+	"source": "https://raw.githubusercontent.com/jgttech/dotfiles/refs/heads/main/bin/install"
 }

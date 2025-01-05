@@ -18,7 +18,7 @@ func Command(build *config.BuildJson) *cli.Command {
 
 	return &cli.Command{
 		Name:  "install",
-		Usage: "Link all the stow packages and run post-stow installation operations.",
+		Usage: "Install all the packages.",
 		Action: func(ctx context.Context, c *cli.Command) error {
 			stow := []string{}
 			dir := path.Join(cfg.Base, "packages")

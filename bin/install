@@ -119,6 +119,7 @@ jq -n '{config: $ARGS.named}' \
   --arg build "$build" \
   --arg binary "$binary" \
   --arg symlink "$symlink" \
+  --arg source "$source" \
   > "$build/.dotfiles.build.json"
 
 # Link the build into the system.
@@ -127,5 +128,5 @@ stow -t $HOME .build
 # Run the installation for the binary.
 "$build/$symlink/$binary" install
 
-echo $(green "$(bold "Install successful.")")
+echo $(green "$(bold "Install successful: $binary")")
 cd $wd

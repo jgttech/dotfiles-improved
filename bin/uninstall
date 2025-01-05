@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-config="$HOME/.dotfiles.build.json"
-base=`cat $config | jq ".config.base"`
-base=`echo "$base" | tr -d '"'`
+# [About]
+# This script just exists to be able to dyamically
+# invoke the CLI's uninstall command, based on the
+# build configuration.
 
-cd $base
-source "bin/init"
+binary=`cat $DOTFILES_CONFIG | jq ".config.binary"`
+binary=`echo "$binary" | tr -d '"'`
 
-build=`json "$config" ".config.build"`
-
-"$build/$symlink/$binary" uninstall
+$binary uninstall

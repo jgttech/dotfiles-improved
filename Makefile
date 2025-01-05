@@ -1,7 +1,3 @@
-# @podman run -dit \
-# 	--name dotfiles \
-# 	-v $(shell pwd):/root/.dotfiles \
-# 	dotfiles
 INSTALL_SCRIPT = .dotfiles/bin/install
 UNINSTALL_SCRIPT = .dotfiles/bin/uninstall
 REINSTALL_SCRIPT = .dotfiles/bin/reinstall
