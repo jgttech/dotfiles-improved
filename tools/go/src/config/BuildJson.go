@@ -18,6 +18,7 @@ type ConfigJson struct {
 	Build    string `json:"build"`
 	Binary   string `json:"binary"`
 	Symlink  string `json:"symlink"`
+	Source   string `json:"source"`
 }
 
 type BuildJson struct {
