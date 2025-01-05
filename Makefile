@@ -1,7 +1,5 @@
 INSTALL_SCRIPT = .dotfiles/bin/install
-UNINSTALL_SCRIPT = .dotfiles/bin/uninstall
-REINSTALL_SCRIPT = .dotfiles/bin/reinstall
-REBUILD_SCRIPT = .dotfiles/bin/rebuild
+CLI = $(shell bin/binary)
 
 .PHONY: build
 build:
@@ -38,21 +36,6 @@ config:
 install: clean build init
 	@podman exec -it dotfiles /bin/zsh -c \
 		"cat $(INSTALL_SCRIPT) | DOTFILES_DEV=true bash"
-
-.PHONY: uninstall
-uninstall:
-	@podman exec -it dotfiles /bin/zsh -c \
-		"cat $(UNINSTALL_SCRIPT) | DOTFILES_DEV=true bash"
-
-.PHONY: reinstall
-reinstall:
-	@podman exec -it dotfiles /bin/zsh -c \
-		"cat $(REINSTALL_SCRIPT) | DOTFILES_LANG=zig DOTFILES_DEV=true bash"
-
-.PHONY: rebuild
-rebuild:
-	@podman exec -it dotfiles /bin/zsh -c \
-		"cat $(REINSTALL_SCRIPT) | DOTFILES_LANG=zig DOTFILES_DEV=true bash"
 
 #######################################################
 # Install methods

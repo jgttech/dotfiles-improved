@@ -5,8 +5,6 @@
 	"private": true,
 	"workspaces": ["packages/*", "tools/*"],
 	"scripts": {
-		"+dev": "make dev",
-		"+rebuild": "make rebuild",
 		"+nuke": "make nuke",
 		"+clean": "make clean",
 		"+ssh": "make ssh",

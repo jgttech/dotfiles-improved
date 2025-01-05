@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
 # [About]
 # This script just exists to be able to dyamically
 # invoke the CLI's uninstall command, based on the
@@ -6,4 +9,4 @@
 binary=`cat "$HOME/.dotfiles.build.json" | jq ".config.binary"`
 binary=`echo "$binary" | tr -d '"'`
 
-$binary uninstall
+printf $binary
