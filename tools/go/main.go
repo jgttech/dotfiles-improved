@@ -2,7 +2,6 @@ package main
 
 import (
 	ctx "context"
-	"fmt"
 	"os"
 
 	"jgttech/dotfiles/cmds/env"
@@ -17,9 +16,6 @@ import (
 
 func main() {
 	etx := context.NewExecutionContext()
-	fmt.Println("packages.:", etx.Packages())
-	fmt.Println("tools....:", etx.Tools())
-
 	app := &cli.Command{
 		Name:  "dotfiles",
 		Usage: "My personal dotfiles CLI.",
