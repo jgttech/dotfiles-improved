@@ -1,5 +1,5 @@
 {
-	"binary": "dtf",
-	"symlink": ".local/bin",
-	"source": "https://raw.githubusercontent.com/jgttech/dotfiles/refs/heads/main/bin/install"
+  "binary": "dotfiles",
+  "symlink": ".local/bin",
+  "source": "https://raw.githubusercontent.com/jgttech/dotfiles/refs/heads/main/bin/install"
 }
