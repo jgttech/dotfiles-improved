@@ -3,6 +3,8 @@ package install
 import (
 	ctx "context"
 	"fmt"
+	"jgttech/dotfiles/cmds/install/alacritty"
+	"jgttech/dotfiles/cmds/install/tpm"
 	"jgttech/dotfiles/src/context"
 	"jgttech/dotfiles/src/exec"
 	"os"
@@ -24,7 +26,14 @@ func Command(etx *context.ExecutionContext) *cli.Command {
 			cmd := exec.Cmd(args, exec.Stdio)
 			cmd.Dir = path.Join(cfg.Base, "packages")
 
-			return cmd.Run()
+			if err := cmd.Run(); err != nil {
+				return err
+			}
+
+			tpm.Install()
+			alacritty.Install(etx)
+
+			return nil
 		},
 	}
 }
