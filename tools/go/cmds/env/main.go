@@ -5,15 +5,29 @@ import (
 	"fmt"
 	"jgttech/dotfiles/src/context"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
 	"github.com/urfave/cli/v3"
 )
 
+func fromStyle(style lipgloss.Style) func(msg string) string {
+	return func(msg string) string {
+		return style.Render(msg)
+	}
+}
+
 func Command(etx *context.ExecutionContext) *cli.Command {
 	cfg := etx.Build.Config
-	title := lipgloss.NewStyle().Bold(true).Faint(true).Render
+
+	titleStyle := lipgloss.NewStyle()
+	titleStyle = titleStyle.Bold(true)
+	titleStyle = titleStyle.Faint(true)
+	titleStyle = titleStyle.PaddingLeft(1)
+	titleStyle = titleStyle.PaddingRight(1)
+	titleStyle = titleStyle.Border(lipgloss.NormalBorder())
+	title := fromStyle(titleStyle)
 
 	return &cli.Command{
 		Name:  "env",
@@ -24,8 +38,7 @@ func Command(etx *context.ExecutionContext) *cli.Command {
 			if variable == "" {
 				var sb strings.Builder
 
-				sb.WriteString("\n")
-				sb.WriteString(title("[BUILD CONFIGURATION]"))
+				sb.WriteString(title("BUILD CONFIGURATION"))
 				sb.WriteString("\n")
 
 				sb.WriteString("base=" + cfg.Base + "\n")
@@ -36,17 +49,17 @@ func Command(etx *context.ExecutionContext) *cli.Command {
 				sb.WriteString("language=" + cfg.Language + "\n")
 				sb.WriteString("source=" + cfg.Source + "\n\n")
 
-				sb.WriteString(title("[PACKAGES]"))
+				sb.WriteString(title("PACKAGES"))
 				sb.WriteString("\n")
-				for _, pkg := range etx.Packages() {
-					sb.WriteString(pkg + "\n")
+				for idx, pkg := range etx.Packages() {
+					sb.WriteString(strconv.Itoa(idx+1) + ". " + pkg + "\n")
 				}
 				sb.WriteString("\n")
 
-				sb.WriteString(title("[TOOLS]"))
+				sb.WriteString(title("TOOLS"))
 				sb.WriteString("\n")
-				for _, tool := range etx.Tools() {
-					sb.WriteString(tool + "\n")
+				for idx, tool := range etx.Tools() {
+					sb.WriteString(strconv.Itoa(idx+1) + ". " + tool + "\n")
 				}
 
 				fmt.Println(sb.String())
