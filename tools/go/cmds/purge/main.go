@@ -19,18 +19,22 @@ func Command(etx *context.ExecutionContext) *cli.Command {
 		Name:  "purge",
 		Usage: "Uninstalls the packages and the CLI, as well as DELETES the repo from your system.",
 		Action: func(_ ctx.Context, c *cli.Command) error {
-			// Detect and unlink all the packages.
 			cmd := exec.Cmd(fmt.Sprintf("%s uninstall", cfg.Binary), exec.Stdio)
 
-			if err := cmd.Run(); err != nil {
-				return err
-			}
+			// Uninstall the packages.
+			assert.Will(cmd.Run())
 
-			// Unlink the build.
 			cmd = exec.Cmd(fmt.Sprintf("stow -t %s -D .build", home), exec.Stdio)
 			cmd.Dir = cfg.Base
 
+			// Uninstall the CLI.
 			assert.Will(cmd.Run())
+
+			// Delete the build.
+			assert.Will(os.RemoveAll(cfg.Build))
+
+			// Delete the repo locally.
+			assert.Will(os.RemoveAll(cfg.Base))
 			return nil
 		},
 	}
