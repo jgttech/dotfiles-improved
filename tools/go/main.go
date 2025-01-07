@@ -10,6 +10,7 @@ import (
 	"jgttech/dotfiles/cmds/packages"
 	"jgttech/dotfiles/cmds/purge"
 	"jgttech/dotfiles/cmds/rebuild"
+	"jgttech/dotfiles/cmds/save"
 	"jgttech/dotfiles/cmds/tools"
 	"jgttech/dotfiles/cmds/uninstall"
 	"jgttech/dotfiles/src/context"
@@ -29,6 +30,7 @@ func main() {
 			packages.Command(etx),
 			purge.Command(etx),
 			rebuild.Command(etx),
+			save.Command(etx),
 			tools.Command(etx),
 			uninstall.Command(etx),
 		},

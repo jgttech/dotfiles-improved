@@ -57,6 +57,7 @@ return {
   mason = {
     gopls = {},
     ols = {},
+    zls = {},
     pyright = {},
     rust_analyzer = {},
     ts_ls = {},
