@@ -34,12 +34,7 @@ func Install(etx *context.ExecutionContext) {
 		panic(errors.New(fmt.Sprintf("Alacritty config not found: '%s'", target)))
 	}
 
-	assert.Must(io.Copy(config, target))
-
-	// assert.Will(
-	// 	exec.Cmd(
-	// 		fmt.Sprintf("cp -v %s %s", target, config),
-	// 		exec.Stdio,
-	// 	).Run(),
-	// )
+	// Copy the OS-specific config file into
+	// the name of the standard config file.
+	assert.Must(io.Copy(target, config))
 }
