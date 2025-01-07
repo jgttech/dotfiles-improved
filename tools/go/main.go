@@ -4,6 +4,7 @@ import (
 	ctx "context"
 	"os"
 
+	"jgttech/dotfiles/cmds/edit"
 	"jgttech/dotfiles/cmds/env"
 	"jgttech/dotfiles/cmds/install"
 	"jgttech/dotfiles/cmds/packages"
@@ -22,6 +23,7 @@ func main() {
 		Name:  "dotfiles",
 		Usage: "My personal dotfiles CLI.",
 		Commands: []*cli.Command{
+			edit.Command(etx),
 			env.Command(etx),
 			install.Command(etx),
 			packages.Command(etx),
