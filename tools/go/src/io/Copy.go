@@ -11,21 +11,22 @@ import (
 func Copy(from, to string) (int64, error) {
 	fromExists := os.Exists(from)
 	toExists := os.Exists(to)
+	var toIo *_os.File
+	defer toIo.Close()
 
 	if !fromExists {
 		return 0, errors.New("File not found: " + from)
 	}
 
 	if !toExists {
-		return 0, errors.New("File not found: " + to)
+		toIo = assert.Must(_os.Create(to))
+	} else {
+		toIo = assert.Must(_os.Open(to))
 	}
 
 	fromStat := assert.Must(_os.Stat(from))
 	fromIo := assert.Must(_os.Open(from))
-	toIo := assert.Must(_os.Open(to))
-
 	defer fromIo.Close()
-	defer toIo.Close()
 
 	written, err := io.CopyN(toIo, fromIo, fromStat.Size())
 
