@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"jgttech/dotfiles/src/assert"
 	"jgttech/dotfiles/src/context"
+	"jgttech/dotfiles/src/io"
 
-	"jgttech/dotfiles/src/exec"
+	// "jgttech/dotfiles/src/exec"
 	"jgttech/dotfiles/src/os"
 	_os "os"
 	"path"
@@ -33,10 +34,12 @@ func Install(etx *context.ExecutionContext) {
 		panic(errors.New(fmt.Sprintf("Alacritty config not found: '%s'", target)))
 	}
 
-	assert.Will(
-		exec.Cmd(
-			fmt.Sprintf("cp -v %s %s", target, config),
-			exec.Stdio,
-		).Run(),
-	)
+	assert.Must(io.Copy(config, target))
+
+	// assert.Will(
+	// 	exec.Cmd(
+	// 		fmt.Sprintf("cp -v %s %s", target, config),
+	// 		exec.Stdio,
+	// 	).Run(),
+	// )
 }
