@@ -6,6 +6,22 @@ if [[ -f "$DOTFILES_ZSHRC" ]]; then
   source "$DOTFILES_ZSHRC"
 fi
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# If the "~/.bun/bin" directory exists then add it
+# to the PATH.
+if [[ -d "$HOME/.bun/bin" ]]; then
+  export PATH="$HOME/.bun/bin:$PATH"
+fi
+
+# If the "~/.rustup" directory exists, then we can
+# add the Rust directory to our path.
+if [[ -d "$HOME/.rustup" ]]; then
+  export PATH="/usr/local/opt/rustup/bin:$PATH"
+fi
+
 # Check if the build configuration exists so that
 # I can if the PATH contains the directory that
 # links to the binary. If it does not exist, then
@@ -142,7 +158,3 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PATH="${PATH}:${HOME}/.local/bin"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
