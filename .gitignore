@@ -8,4 +8,5 @@ spell/
 lazy-lock.json
 .bin/build
 packages/alacritty/.config/alacritty/alacritty.toml
+packages/ghostty/.config/ghostty/config
 packages/zsh/.zsh.build

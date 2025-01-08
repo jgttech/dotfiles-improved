@@ -4,6 +4,7 @@ import (
 	ctx "context"
 	"fmt"
 	"jgttech/dotfiles/cmds/install/alacritty"
+	"jgttech/dotfiles/cmds/install/ghostty"
 	"jgttech/dotfiles/cmds/install/tpm"
 	"jgttech/dotfiles/src/context"
 	"jgttech/dotfiles/src/exec"
@@ -32,6 +33,7 @@ func Command(etx *context.ExecutionContext) *cli.Command {
 
 			tpm.Install()
 			alacritty.Install(etx)
+			ghostty.Install(etx)
 
 			return nil
 		},
